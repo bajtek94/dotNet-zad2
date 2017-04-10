@@ -21,19 +21,20 @@ namespace Tablice
         {
             get
             {
-                try
+                if (el < countOfElements)
                 {
                     return tab[el];
-                }catch(Exception ex)
-                {
-                    Console.WriteLine("Error ! ! !");
                 }
-                return 0;
+                else
+                {
+                    throw new IndexOutOfRangeException();
+                }                
             }
             set
             {
                 if (el >= countOfElements)
                 {
+                    Console.WriteLine("Dodawanie elementu poza tablicą.");
                     growTab(el+1);
                     countOfElements = el+1;
                 } 
@@ -48,18 +49,19 @@ namespace Tablice
             {
                 growTab(2 * count);
             }
-            //Console.WriteLine("Rozmiar: " + count)
             tab[countOfElements] = el;
             countOfElements++;
+            Console.WriteLine("dodano liczbę " + el);
+            Console.WriteLine("aktualna ilość danych w tablicy: " + countOfElements);
         }
 
         private void growTab(int newSize)
         {
+            Console.WriteLine("Powiększanie tablicy ...");
             int count = tab.Count();
             Console.WriteLine("Stary rozmiar: " + count);
             Array.Resize(ref tab, newSize);
             Console.WriteLine("Zwiększono rozmiar do: " + tab.Count());
-            //tab = new int[count * 2];
         }
     }
 }
